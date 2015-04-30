@@ -1,0 +1,35 @@
+<!doctype html>
+<html ng-app="poolRulesApp">
+  <head>
+    <title>poolRules</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  </head>
+  <body ng-controller="poolRulesCtrl">
+    <div class="container">
+      <br>
+      <div class="jumbotron text-center">
+        <h1>poolRules</h1>
+        <h4><label class="label label-danger">ATTN: Breaking any rule results in forfeit.</label></h4>
+      </div>
+      
+      <form>
+        <div class="panel panel-default" ng-repeat="panel in panels" ng-show="!panel.game || panel.game == panels[0].selected">
+          <div class="panel-heading">
+            <h2>{{panels[0].game}} {{panel.title}}</h2>
+          </div>
+          <div class="panel-body">
+            <h3 ng-repeat="radio in panel.radios" ng-hide="printRules && radio.name !== panel.selected"><input type="radio" name="{{panel.title}}" value="{{radio.name}}" ng-model="panel.selected" ng-hide="printRules" ng-click="setDefaults(radio.name)"> {{radio.name}} <small>{{radio.desc}}</small></h3>
+            <h3 ng-repeat="checkbox in panel.checkboxes" ng-hide="printRules && !checkbox.checked"><input type="checkbox" ng-model="checkbox.checked" ng-hide="printRules"> {{checkbox.name}} <small>{{checkbox.desc}}</small></h3>
+          </div>
+        </div>
+        <div class="jumbotron text-center">
+          <button class="btn btn-lg btn-primary" ng-click="printRules=true" ng-disabled="printRules">Lock the rules</button>
+          <button class="btn btn-lg btn-warning" ng-click="randomize()" ng-disabled="printRules">Randomize</button>
+        </div>
+      </form>
+      
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+  <script src="script.js"></script>
+</html>
